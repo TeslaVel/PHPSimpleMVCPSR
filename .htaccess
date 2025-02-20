@@ -1,0 +1,8 @@
+<IfModule mod_rewrite.c>
+    # Activa el motor de reescritura
+    RewriteEngine On
+
+    # Redirige todas las solicitudes que no apunten a archivos o directorios existentes a /public/
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
