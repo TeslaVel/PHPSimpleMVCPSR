@@ -1,0 +1,97 @@
+# I made it myself. Simple PHP with MVC pattern.
+
+Building a simple MVC in PHP using PSR without third-party code. Just pure PHP (WIP)
+
+# Folder Structure
+- `app`
+    - `Components`
+    * `CardComponent.php`
+    * `FormComponent.php`
+    * `FormDeleteComponent.php`
+    * `IconsComponent.php`
+    * `InputComponent.php`
+    * `InputsComponent.php`
+    * `TableComponent.php`
+    * `TableShowComponent.php`
+    - `Config/`
+        * `Config.php`
+        * `Database.php`
+        * `filters.php`
+        * `routes.php`
+    - `Controllers/`
+        * `BaseController.php`
+        * `HomeController.php`
+        * `MessagesController.php`
+        * `PostsController.php`
+        * `SessionsController.php`
+        * `UsersController.php`
+    - `Core/`
+        - `Components`
+            * `Component.php`
+        - `Config/`
+            * `Handler.php`
+            * `Router.php`
+        - `Controllers/`
+            * `BaseController.php`
+        - `Database/`
+            * `Connection.php`
+        - `Helpers/`
+            * `Auth.php`
+            * `Cookie.php`
+            * `Flashify.php`
+            * `Redirect.php`
+            * `Render.php`
+            * `Request.php`
+            * `URL.php`
+        - `Interfaces`
+            * `LogerInterface.php`
+        - `Loggers`
+            * `ActionLogger.php`
+            * `FileLogger.php`
+        - `Models/`
+            - `Concerns/`
+                * `FieldsConcern.php`
+                * `Collection.php`
+            - `Relations/`
+                * `BelongsTo.php`
+                * `HasMany.php`
+                * `HasOne.php`
+            - `Validators`
+                * `EmailRule.php`
+                * `Validator.php`
+                * `RequiredRule.php`
+            * `BaseModel.php`
+    - `Model`
+        * `Message.php`
+        * `Post.php`
+        * `User.php`
+    - `Views/`
+    - `home/`
+        * `index.php`
+    - `users/`
+        * `index.php`
+        * `show.php`
+        * `edit.php`
+        * `new.php`
+    - `messages/`
+        * `index.php`
+        * `show.php`
+        * `edit.php`
+    - `posts/`
+        * `index.php`
+        * `show.php`
+        * `edit.php`
+        * `mew.php`
+    - `sessions/`
+        * `signin.php`
+        * `signup.php`
+    * `footer.php`
+    * `layout.php`
+    * `menu.php`
+- `public`
+    * `index.php`
+- `vendor`
+    - `composer`
+    * `autoload.php`
+* `composer.json`
+* `README.md`
