@@ -7,7 +7,6 @@ use App\Core\Helpers\Render;
 use App\Core\Helpers\Redirect;
 use App\Core\Helpers\Flashify;
 use App\Core\Helpers\Auth;
-use App\Core\Loggers\ActionLogger;
 use App\Core\Helpers\URL;
 
 use App\Models\User;
@@ -16,11 +15,9 @@ use App\Models\Message;
 class MessagesController extends BaseController {
   public $indexUrl;
   private $messageModel;
-  private $logger;
 
   public function __construct() {
     parent::__construct();
-    $this->logger = ActionLogger::getInstance();
     $this->messageModel = new Message();
     $this->indexUrl = '/'.URL::getAppPath().'/posts';
   }

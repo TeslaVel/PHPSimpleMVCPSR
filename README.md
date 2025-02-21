@@ -5,14 +5,14 @@ Building a simple MVC in PHP using PSR without third-party code. Just pure PHP (
 # Folder Structure
 - `app`
     - `Components`
-    * `CardComponent.php`
-    * `FormComponent.php`
-    * `FormDeleteComponent.php`
-    * `IconsComponent.php`
-    * `InputComponent.php`
-    * `InputsComponent.php`
-    * `TableComponent.php`
-    * `TableShowComponent.php`
+        * `CardComponent.php`
+        * `FormComponent.php`
+        * `FormDeleteComponent.php`
+        * `IconsComponent.php`
+        * `InputComponent.php`
+        * `InputsComponent.php`
+        * `TableComponent.php`
+        * `TableShowComponent.php`
     - `Config/`
         * `Config.php`
         * `Database.php`
@@ -92,6 +92,7 @@ Building a simple MVC in PHP using PSR without third-party code. Just pure PHP (
     * `index.php`
 - `vendor`
     - `composer`
+        * `composer_files`
     * `autoload.php`
 * `composer.json`
 * `README.md`

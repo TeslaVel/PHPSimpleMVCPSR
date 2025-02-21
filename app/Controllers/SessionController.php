@@ -8,18 +8,15 @@ use App\Core\Helpers\Redirect;
 use App\Core\Helpers\Flashify;
 use App\Core\Helpers\Auth;
 use App\Core\Helpers\URL;
-use App\Core\Loggers\ActionLogger;
 
 use App\Models\User;
 
 class SessionController extends BaseController {
   private $userModel;
   public $indexUrl;
-  private $logger;
 
   public function __construct() {
     parent::__construct();
-    $this->logger = ActionLogger::getInstance();
     $this->userModel = new User();
     $this->indexUrl = '/'.URL::getAppPath().'/';
   }

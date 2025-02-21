@@ -8,7 +8,6 @@ use App\Core\Helpers\Redirect;
 use App\Core\Helpers\Flashify;
 use App\Core\Helpers\Auth;
 use App\Core\Helpers\URL;
-use App\Core\Loggers\ActionLogger;
 
 use App\Models\User;
 use App\Models\Post;
@@ -16,11 +15,9 @@ use App\Models\Post;
 class PostsController extends BaseController {
   public $indexUrl;
   private $postModel;
-  private $logger;
 
   public function __construct() {
     parent::__construct();
-    $this->logger = ActionLogger::getInstance();
     $this->postModel = new Post();
     $this->indexUrl = '/'.URL::getAppPath().'/posts';
   }

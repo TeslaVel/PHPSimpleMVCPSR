@@ -1,9 +1,9 @@
 <?php
 namespace App\Core\Loggers;
 
-use FileLogger;
+use App\Core\Loggers\FileLogger;
 
-class ActionLogger {
+class Logger {
     private static $instance;
 
     public static function getInstance(): FileLogger {

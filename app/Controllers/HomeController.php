@@ -3,14 +3,11 @@
 namespace App\Controllers;
 
 use App\Core\Controllers\BaseController;
-use App\Core\Loggers\ActionLogger;
 use App\Core\Helpers\Render;
 
 class HomeController extends BaseController {
-  private $logger;
-
   public function __construct() {
-    $this->logger = ActionLogger::getInstance();
+    parent::__construct();
   }
 
   public function index() {
