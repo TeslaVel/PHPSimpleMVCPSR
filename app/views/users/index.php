@@ -10,8 +10,6 @@ $fields = [
 ];
 
 $table = Component::render('TableComponent' , [$users, 'users', $fields, [], 'User Lists']);
-
-ob_start();
 ?>
 
 <div>
@@ -21,6 +19,3 @@ ob_start();
   </div>
 </div>
 
-<?php
-  $content = ob_get_clean();
-?>

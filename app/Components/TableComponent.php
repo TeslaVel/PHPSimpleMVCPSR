@@ -71,7 +71,6 @@ class TableComponent {
             if (isset($field['label'])) {
                 $html .= '<th>' . ucwords($field['label']). '</th>';
             } else {
-
                 $html .= '<th>' . ucwords($field['name']). '</th>';
             }
         }

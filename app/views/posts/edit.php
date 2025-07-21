@@ -32,13 +32,7 @@ $form = Component::render('FormComponent', [[
             'action_buttons' => $action_buttons
             ]]);
 
-ob_start();
-
 ?>
 <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 mx-auto pt-5">
   <?php echo $form; ?>
 </div>
-
-<?php
-$content = ob_get_clean();
-?>

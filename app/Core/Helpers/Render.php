@@ -32,7 +32,9 @@ class Render {
     
     require_once __DIR__ . '/../Components/Component.php';
     // Incluye la vista principal
+    ob_start();
     require_once $viewPath;
+    $content = ob_get_clean();
     require_once $layoutPath;
   }
 

@@ -42,7 +42,6 @@ $form_args = [
 
 $form_comment = Component::render('FormComponent', [$form_args]);
 
-ob_start();
 ?>
 <div class="col-8 mx-auto mt-5" style="">
   <?php echo $table; ?>
@@ -54,9 +53,10 @@ ob_start();
 </div>
 <?php if (count($messages) > 0 ) { ?>
   <div class="col-8 mx-auto mt-3 text-center">Comments</div>
-  <div class="col-8 mx-auto mt-3" style="height: 320px;overflow: scroll;">
+  <div class="col-8 mx-auto mt-3 d-flex flex-column " style="height: 320px; overflow: scroll; gap: 5px;">
     <?php foreach ($messages  as $msg) { ?>
       <?php echo  Component::render('CardComponent', [[
+                    'header_title' => $msg->user()->email,
                     'body_text' => $msg->message,
                     'card_footer_classes' => 'px-3 py-2 d-flex justify-content-end align-items-center mt-2',
                     'action_buttons' => [
@@ -72,7 +72,3 @@ ob_start();
     <?php } ?>
   </div>
 <?php } ?>
-
-<?php
-$content = ob_get_clean();
-?>

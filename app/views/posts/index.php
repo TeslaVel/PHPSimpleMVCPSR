@@ -12,7 +12,6 @@ $table = Component::render('TableComponent', [
   $posts->all(), 'posts', $fields, [], 'Post Lists', []
 ]);
 
-ob_start();
 ?>
 
 
@@ -29,7 +28,3 @@ ob_start();
     <?php echo $table; ?>
   </div>
 </div>
-
-<?php
-  $content = ob_get_clean();
-?>

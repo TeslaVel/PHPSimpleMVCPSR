@@ -8,7 +8,6 @@ $fields_show = [
   ['name' => 'count', 'callable' => 'posts', 'label' => 'Posts'],
 ];
 
-
 $table = Component::render('TableShowComponent', [[
         'path' => 'users', 'record' => $user,
         'fields' => $fields_show,
@@ -19,12 +18,8 @@ $table = Component::render('TableShowComponent', [[
         ]
       ]]);
 
-ob_start();
 ?>
 <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 mt-5 mx-auto">
   <?php echo $table; ?>
 </div>
 
-<?php
-$content = ob_get_clean();
-?>

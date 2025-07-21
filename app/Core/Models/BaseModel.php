@@ -91,7 +91,7 @@ class BaseModel {
 
   public function update($data) {
     $tableName = $this->tableName;
-    list($preparedFields, $filteredData) = $this->bindToUpdate($this->fillables, $data);;
+    list($preparedFields, $filteredData) = $this->bindToUpdate($this->fillables, $data);
     $this->execValidations($filteredData);
 
     $sql = "UPDATE $tableName SET " . implode(', ', $preparedFields) . " WHERE id = :id";
