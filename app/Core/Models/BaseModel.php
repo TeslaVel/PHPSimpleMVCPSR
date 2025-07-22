@@ -18,7 +18,7 @@ class BaseModel {
   use Relations\BelongsTo;
   use Relations\HasMany;
   use Relations\HasOne;
-  
+
   private $fillables;
   private $tableName;
   protected $object;
@@ -38,8 +38,8 @@ class BaseModel {
     return null;
   }
 
-  private function execValidations($data) {
-    $validations = get_class($this)::$validations;
+  private function execValidations($data, $rules = null) {
+    $validations = $rules ? $rules : get_class($this)::$validations;
 
     if (isset($validations)) {
       $this->addErrors($this->validate($data, $validations));
@@ -50,10 +50,10 @@ class BaseModel {
     return count($this->errors) > 0;
   }
 
-  public function save($data) {
+  public function save($data, $rules = null) {
     $tableName = $this->tableName;
     list($columns, $values, $filteredData) = $this->bindToInsert($this->fillables, $data);
-    $this->execValidations($filteredData);
+    $this->execValidations($filteredData, $rules);
     $sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
 
     $stmt = $this->db->prepare($sql);
@@ -68,8 +68,7 @@ class BaseModel {
       $this->find($id);
       return $this;
     } catch(PDOException $e) {
-      echo "Error de conexión: " . $e;
-      exit;
+      throw new \Exception("Error de conexión: " . $e);
     }
   }
 
@@ -84,15 +83,14 @@ class BaseModel {
       return $this;
       // return new (get_class($this))($data);
     } catch(PDOException $e) {
-      echo "Error de conexión: " . $e;
-      exit;
+      throw new \Exception("Error de conexión: " . $e);
     }
   }
 
-  public function update($data) {
+  public function update($data, $rules = null) {
     $tableName = $this->tableName;
     list($preparedFields, $filteredData) = $this->bindToUpdate($this->fillables, $data);
-    $this->execValidations($filteredData);
+    $this->execValidations($filteredData, $rules);
 
     $sql = "UPDATE $tableName SET " . implode(', ', $preparedFields) . " WHERE id = :id";
 
@@ -108,8 +106,7 @@ class BaseModel {
       $this->find($this->id);
       return $this;
     } catch(PDOException $e) {
-      echo "Error de conexión: " . $e;
-      exit;
+      throw new \Exception("Error de conexión: " . $e);
     }
   }
 
@@ -123,8 +120,7 @@ class BaseModel {
       $stmt->execute();
       return $stmt->rowCount();
     } catch(PDOException $e) {
-      echo "Error de conexión: " . $e;
-      exit;
+      throw new \Exception("Error de conexión: " . $e);
     }
   }
 
@@ -140,8 +136,7 @@ class BaseModel {
       );
       return $this;
     } catch(PDOException $e) {
-      echo "Error de conexión: " . $e;
-      exit;
+      throw new \Exception("Error de conexión: " . $e);
     }
   }
 
@@ -158,8 +153,7 @@ class BaseModel {
       );
       return $this;
     } catch(PDOException $e) {
-      echo "Error de conexión: " . $e;
-      exit;
+      throw new \Exception("Error de conexión: " . $e);
     }
   }
 

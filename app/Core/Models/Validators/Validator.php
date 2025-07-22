@@ -22,10 +22,10 @@ trait Validator {
         $ruleValue = isset($ruleParts[1]) ? $ruleParts[1] : null;
 
         // Verifica si existe una clase para la regla de validación
-        if (class_exists(ucfirst($ruleName) . 'Rule')) {
+        $fullClassName = 'App\Core\Models\Validators\\' . ucfirst($ruleName) . 'Rule';
+        if (class_exists($fullClassName)) {
           // Ejecuta la regla de validación
-          $isValid = call_user_func([$ruleName . 'Rule', 'validate'], $data[$field], $ruleValue, $isString);
-
+          $isValid = call_user_func([$fullClassName, 'validate'], $data[$field], $ruleValue, $isString);
           // Si la validación falla, agrega un error al campo correspondiente
           if (!$isValid) {
             $errors[$field][] = ucfirst($field) . ' ' . self::getErrorMessage($ruleName, $ruleValue);
@@ -36,6 +36,7 @@ trait Validator {
 
     return $errors;
   }
+
   private function getErrorMessage($ruleName, $ruleValue) {
     switch ($ruleName) {
       case 'required':

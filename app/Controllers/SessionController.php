@@ -8,6 +8,7 @@ use App\Core\Helpers\Redirect;
 use App\Core\Helpers\Flashify;
 use App\Core\Helpers\Auth;
 use App\Core\Helpers\URL;
+use App\Helpers\ValidatorHelper;
 
 use App\Models\User;
 
@@ -40,26 +41,23 @@ class SessionController extends BaseController {
 
     $data = $this->request->session;
 
+    $rules = [
+        'email' => 'required|email',
+        'password' => 'required',
+    ];
+
+    $errors = ValidatorHelper::validate($data, $rules);
+
+    if (!empty($errors)) {
+        Flashify::create([
+            'type' => 'danger',
+            'message' => implode(', ', array_map(function($e) { return $e[0]; }, $errors)),
+        ]);
+        return Redirect::to($this->indexUrl);
+    }
+
     $user = $this->userModel->findBy('email', $data['email'])->first();
-    $exception = null;
 
-    if (!$user) {
-      $exception = "User not found";
-    }
-
-    if (!password_verify($data['password'], $user->password)) {
-      $exception = "Invalid Password";
-    }
-
-    if ($exception != null) {
-      Flashify::create([
-        'type' => 'danger',
-        'message' => $exception,
-      ]);
-
-      return Redirect::to($this->indexUrl);
-    }
-   
     Auth::store($user);
     Redirect::to($this->indexUrl);
   }
@@ -69,46 +67,36 @@ class SessionController extends BaseController {
   }
   public function register() {
     if (!isset($this->request->session)) return Redirect::to($this->indexUrl);
-
     $data = $this->request->session;
+    $user = $this->userModel->save($data, User::$registerValidations);
 
-    $exception = null;
-
-    if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-      $exception = "Correo electrónico no válido";
-    }
-
-    if (strlen($data['password']) < 7) {
-      $exception = "La contraseña debe tener al menos 8 caracteres";
-    }
-
-    if ($exception != null) {
+    if ($user->fails()) {
       Flashify::create([
         'type' => 'danger',
-        'message' => $exception,
+        'message' => implode(',', $user->getErrorMessages()) ,
       ]);
 
-      return  Redirect::to($this->indexUrl);
+      return Redirect::to($this->indexUrl.'session/signup');
     }
 
     $encrypted = password_hash($data['password'], PASSWORD_BCRYPT);
 
     $newData = [
-      ...$_POST['session'],
       'password' => $encrypted
     ];
 
-    $id = $this->userModel->save($newData);
+    $user =$this->userModel->update($newData, User::$updateValidations);
 
-    if ($id > 0) {
+    if ($user->fails()) {
+      Flashify::create([
+        'type' => 'danger',
+        'message' => implode(',', $user->getErrorMessages()),
+      ]);
+      return Redirect::to($this->indexUrl.'session/signup');
+    } else {
       Flashify::create([
         'type' => 'success',
         'message' => 'User was created',
-      ]);
-    } else {
-      Flashify::create([
-        'type' => 'danger',
-        'message' => 'User cannot be created',
       ]);
     }
 

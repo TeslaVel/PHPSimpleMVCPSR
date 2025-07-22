@@ -59,7 +59,6 @@ class Router {
 
   public static function dispatch($method) {
     $uri = URL::getCurrentRoute();
-    // $request = new Request;
     $route = self::match($method, $uri);
 
     if ($route) {
@@ -72,12 +71,6 @@ class Router {
     }
   }
 
-  // public static function checkIfExistsController($controllerName) {
-  //   return file_exists(URL::getRootPath()."/controllers/$controllerName.php");
-  // }
-
-  # Nota: ver como incluir el controlador si es que estamos usando
-  # namespaces
   private static function callHandler($handler, $params) {
     if (is_callable($handler)) {
         call_user_func($handler, $params);
@@ -93,7 +86,7 @@ class Router {
 
         $controller = new $fullControllerName();
         $controller->requestInit();
-    
+
         if (isset($params) && count($params) > 0) {
             $controller->$method(...$params);
         } else {
@@ -103,32 +96,6 @@ class Router {
         echo "Invalid action";
     }
   }
-  // private static function callHandler($handler, $params) {
-  //   if (is_callable($handler)) {
-  //     call_user_func($handler, $params);
-  //   } elseif (is_string($handler)) {
-  //     list($controllerName, $method) = explode('@', $handler);
-
-  //     if (!self::checkIfExistsController($controllerName)) {
-  //       echo "<br>The Controller $controllerName: not found";
-  //       exit;
-  //     }
-
-  //     $controllerPath = "controllers/$controllerName.php";
-  //     include_once $controllerPath;
-
-  //     $logger = new ActionLogger();
-  //     $controller = new $controllerName($logger);
-  //     $controller->requestInit();
-  //     if (isset($params) && count($params) > 0) {
-  //       $controller->$method(...$params);
-  //     } else {
-  //       $controller->$method();
-  //     }
-  //   } else {
-  //     echo "Invalid action";
-  //   }
-  // }
 
   public static function group($array, $callback) {
     if(isset($array)) self::$currentFilter = self::$filters[$array['before']];

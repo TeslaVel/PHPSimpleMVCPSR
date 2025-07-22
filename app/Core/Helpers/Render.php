@@ -13,7 +13,7 @@ class Render {
     // Construye la ruta absoluta de la vista
     $viewPath = self::getViewPath($path);
     $layoutPath = self::getViewPath('layout');
-    
+
     // Verifica si la vista existe antes de incluirla
     if (!file_exists($viewPath)) {
         throw new \Exception("View not found: $viewPath");
@@ -29,7 +29,7 @@ class Render {
       'auth_helper' => new Auth,
       'flashify_helper' => new Flashify,
     ]);
-    
+
     require_once __DIR__ . '/../Components/Component.php';
     // Incluye la vista principal
     ob_start();

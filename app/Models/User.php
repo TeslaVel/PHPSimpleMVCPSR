@@ -10,11 +10,22 @@ class User extends BaseModel {
 
   public static $name = 'users';
 
-  public static $validations = [
+  public static $updateValidations = [
     'first_name' => 'required|string|min:4',
     'last_name' => 'required|string|min:4',
     'email' => 'required|string|email',
-    // 'password' => 'required|string|min:8|confirmed',
+  ];
+
+  public static $loginValidations = [
+    'email' => 'required|email',
+    'password' => 'required|string',
+  ];
+
+  public static $registerValidations = [
+    'first_name' => 'required|string|min:4',
+    'last_name' => 'required|string|min:4',
+    'email' => 'required|email',
+    'password' => 'required|string|min:8',
   ];
 
   public static $fillableFields = [

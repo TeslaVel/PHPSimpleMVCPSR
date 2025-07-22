@@ -9,8 +9,8 @@ use App\Core\Helpers\Flashify;
 use App\Core\Helpers\Auth;
 use App\Core\Helpers\URL;
 
-use App\Models\User;
 use App\Models\Post;
+use App\Models\User;
 
 class PostsController extends BaseController {
   public $indexUrl;
@@ -47,15 +47,20 @@ class PostsController extends BaseController {
   public function create() {
     if (!isset($this->request->post)) return Redirect::to($this->indexUrl);
 
-    $id = $this->postModel->save([
+    $post = $this->postModel->save([
       ...$this->request->post,
       'user_id' => Auth::user()->id
     ]);
 
-    if ($id > 0) {
+    if ($post->fails()) {
+      Flashify::create([
+        'type' => 'danger',
+        'message' => implode(',', $post->getErrorMessages()),
+      ]);
+    } else {
       Flashify::create([
         'type' => 'success',
-        'message' => 'Post was create',
+        'message' => 'Post was updated',
       ]);
     }
 
@@ -89,7 +94,7 @@ class PostsController extends BaseController {
     if ($post->fails()) {
       Flashify::create([
         'type' => 'danger',
-        'message' => implode(',', $post->getErrorMessages()) ,
+        'message' => implode(',', $post->getErrorMessages()),
       ]);
     } else {
       Flashify::create([

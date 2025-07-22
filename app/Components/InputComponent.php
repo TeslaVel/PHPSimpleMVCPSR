@@ -103,7 +103,7 @@ class InputComponent {
                 $html = '<input type="password" name="' . self::$attrs['name'] . '" ' . self::buildProps($props) . '>';
                 break;
            case 'textarea':
-                $html = '<textarea name="' . self::$attrs['name'] . '" ' . self::buildProps($props) . '> '. (isset(self::$attrs['value']) ? self::$attrs['value'] : '').'</textarea>';
+                $html = '<textarea name="' . self::$attrs['name'] . '" ' . self::buildProps($props) . '>'. (isset(self::$attrs['value']) ? self::$attrs['value'] : '').'</textarea>';
                 break;
             case 'number':
                 $html = '<input type="number" name="' . self::$attrs['name'] . '" ' . self::buildProps($props) . '>';

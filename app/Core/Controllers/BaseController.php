@@ -11,8 +11,9 @@ use App\Core\Helpers\Flashify;
 use App\Core\Helpers\Redirect;
 use App\Core\Helpers\Render;
 use App\Core\Loggers\Logger;
+use App\Core\Controllers\ResourceControllerInterface; // <-- ¡Este es el importante!
 
-class BaseController {
+abstract class BaseController implements ResourceControllerInterface {
   use \App\Core\Helpers\Request;
 
   public $logger;

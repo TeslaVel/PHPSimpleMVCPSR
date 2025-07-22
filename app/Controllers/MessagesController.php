@@ -48,14 +48,12 @@ class MessagesController extends BaseController {
     if ($message->fails()) {
       Flashify::create([
         'type' => 'danger',
-        'message' => implode(',', $message->getErrorMessages()) ,
+        'message' => implode(',', $message->getErrorMessages()),
       ]);
-    }
-
-    if (!$message->fails()) {
+    } else {
       Flashify::create([
         'type' => 'success',
-        'message' => 'Message was create',
+        'message' => 'Post was updated',
       ]);
     }
 

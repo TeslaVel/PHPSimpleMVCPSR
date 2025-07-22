@@ -3,8 +3,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+use App\Core\Helpers\ErrorHandler;
+
 // Incluye el autoloader de Composer
 require_once __DIR__ . '/../vendor/autoload.php';
+
+ErrorHandler::register();
 
 // Incluye el archivo de rutas
 require_once __DIR__ . '/../app/Config/Routes.php';

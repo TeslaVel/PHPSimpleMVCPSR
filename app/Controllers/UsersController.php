@@ -48,10 +48,14 @@ class UsersController extends BaseController {
     if (!isset($this->request->user)) return Redirect::to($this->indexUrl);
 
     $user = $this->userModel->find($id);
+    $user->update($this->request->user, User::$updateValidations);
 
-    $affected = $user->update($this->request->user);
-
-    if ($affected > 0) {
+    if ($user->fails()) {
+      Flashify::create([
+        'type' => 'danger',
+        'message' => implode(',', $user->getErrorMessages()) ,
+      ]);
+    } else {
       Flashify::create([
         'type' => 'success',
         'message' => 'User was updated',
