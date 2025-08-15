@@ -65,10 +65,11 @@ class SessionController extends BaseController {
   public function signup() {
     Render::view('session/signup', []);
   }
+
   public function register() {
     if (!isset($this->request->session)) return Redirect::to($this->indexUrl);
     $data = $this->request->session;
-    $user = $this->userModel->save($data, User::$registerValidations);
+    $user = $this->userModel->execValidations($data);
 
     if ($user->fails()) {
       Flashify::create([
@@ -82,10 +83,11 @@ class SessionController extends BaseController {
     $encrypted = password_hash($data['password'], PASSWORD_BCRYPT);
 
     $newData = [
+      ...$data,
       'password' => $encrypted
     ];
 
-    $user =$this->userModel->update($newData, User::$updateValidations);
+    $user =$this->userModel->save($newData);
 
     if ($user->fails()) {
       Flashify::create([
@@ -103,7 +105,12 @@ class SessionController extends BaseController {
     Redirect::to($this->indexUrl);
   }
 
-  public function delete() {
+  public function index() {}
+  public function show($id) {}
+  public function edit($id) {}
+  public function update($id) {}
+
+  public function delete($id = null) {
     Auth::delete();
     Redirect::to($this->indexUrl);
   }

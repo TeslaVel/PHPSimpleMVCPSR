@@ -53,8 +53,7 @@ class ErrorHandler
             <div class="error-container">
                 <h1>¡Ups! Algo salió mal</h1>
                 <p>Ha ocurrido un error inesperado.<br>Por favor, intenta más tarde.</p>
-                <!-- Solo en desarrollo: muestra detalles -->
-                <!-- <div class="details"><?= htmlspecialchars($exception->getMessage()) ?></div> -->
+                <div class="details"><?= htmlspecialchars($exception) ?></div>
             </div>
         </body>
         </html>

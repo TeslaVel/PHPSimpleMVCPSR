@@ -32,18 +32,21 @@ class BaseModel {
   }
 
   public function __get($property) {
-    if (array_key_exists($property, $this->object)) {
+    if ($property && isset($this->object) && array_key_exists($property, $this->object)) {
       return $this->object[$property];
     }
     return null;
   }
 
-  private function execValidations($data, $rules = null) {
+  public function execValidations($data, $rules = null) {
     $validations = $rules ? $rules : get_class($this)::$validations;
+    list($columns, $values, $filteredData) = $this->bindToInsert($this->fillables, $data);
 
     if (isset($validations)) {
-      $this->addErrors($this->validate($data, $validations));
+      $this->addErrors($this->validate($filteredData, $validations));
     }
+
+    return $this;
   }
 
   public function fails() {
@@ -52,8 +55,14 @@ class BaseModel {
 
   public function save($data, $rules = null) {
     $tableName = $this->tableName;
+    $this->execValidations($data, $rules);
+
+    if ($this->fails()) {
+      return $this;
+    }
+
     list($columns, $values, $filteredData) = $this->bindToInsert($this->fillables, $data);
-    $this->execValidations($filteredData, $rules);
+
     $sql = "INSERT INTO $tableName ($columns) VALUES ($values)";
 
     $stmt = $this->db->prepare($sql);
@@ -81,7 +90,6 @@ class BaseModel {
       $stmt->execute();
       $this->object = $stmt->fetch(\PDO::FETCH_ASSOC);
       return $this;
-      // return new (get_class($this))($data);
     } catch(PDOException $e) {
       throw new \Exception("Error de conexión: " . $e);
     }
@@ -89,9 +97,11 @@ class BaseModel {
 
   public function update($data, $rules = null) {
     $tableName = $this->tableName;
+    $this->execValidations($data, $rules);
+    if ($this->fails()) {
+      return $this;
+    }
     list($preparedFields, $filteredData) = $this->bindToUpdate($this->fillables, $data);
-    $this->execValidations($filteredData, $rules);
-
     $sql = "UPDATE $tableName SET " . implode(', ', $preparedFields) . " WHERE id = :id";
 
     $stmt = $this->db->prepare($sql);

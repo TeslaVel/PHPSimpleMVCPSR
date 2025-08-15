@@ -116,7 +116,7 @@ class TableComponent {
 
     private static function build_row_action($row) {
         $html = '<td class="d-flex justify-content-center" style="gap: 10px;">';
-       
+
         $showButtonClass = self::$row_actions['show']['with_icon'] ? 'text-primary' : 'btn btn-sm btn-primary';
         $html .= '<a class="'.$showButtonClass.' mx-1" href="' .self::$base_url ."/". $row->id . '">';
         $html .= (self::$row_actions['show']['with_icon']) ? IconsComponent::render('eye', '23', '23') : 'View';

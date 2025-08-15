@@ -17,15 +17,15 @@ $action_buttons = [
   ],
   'back' => [
     'label' => 'Back',
-    'url' => '/'.URL::getAppPath().'/posts'
+    'url' => '/'.$url_helper::getAppPath().'/posts'
   ]
 ];
 
-$form = FormComponent::render([
-            'path' => 'posts', 'is_new' => true, 'title' => 'Create Post',
+$form = Component::render('FormComponent', [[
+            'path' => 'posts', 'title' => 'Create Post',
             'record' => null, 'fields' => $fields,
             'action_buttons' => $action_buttons
-            ]);
+            ]]);
 
 ?>
 

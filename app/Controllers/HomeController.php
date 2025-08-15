@@ -14,5 +14,10 @@ class HomeController extends BaseController {
     $this->logger->log('Enter to home page');
     Render::view('home/index', []);
   }
+
+  public function show($id) {}
+  public function edit($id) {}
+  public function update($id) {}
+  public function delete($id) {}
 }
 

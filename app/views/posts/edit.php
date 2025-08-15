@@ -27,7 +27,7 @@ $action_buttons = [
 ];
 
 $form = Component::render('FormComponent', [[
-            'path' => 'posts', 'is_new' => false, 'title' => 'Update Post',
+            'path' => 'posts', 'title' => 'Update Post',
             'record' => $post, 'fields' => $fields,
             'action_buttons' => $action_buttons
             ]]);

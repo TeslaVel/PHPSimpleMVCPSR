@@ -19,7 +19,6 @@ class Component {
         if (!is_callable($renderMethod)) {
             throw new \Exception("Render method not found in component: {$componentName}");
         }
-
         // Llama al método render y le pasa los argumentos
         return call_user_func_array($renderMethod, ...$args);
     }

@@ -14,7 +14,7 @@ class FormComponent {
     private static $base_url;
 
     public static function render($options) {
-        $is_new = isset($options['is_new']) ? $options['is_new'] : true;
+        // $is_new = isset($options['is_new']) ? $options['is_new'] : true; # deprecated
         $path = isset($options['path']) ? $options['path'] : null;
         $record = isset($options['record']) ? $options['record'] : null;
         $custom_path = isset($options['custom_path']) ? $options['custom_path'] : null;
@@ -29,7 +29,7 @@ class FormComponent {
 
         $submit_label = 'Create';
 
-        if ($is_new == false && !isset($custom_path)) {
+        if ($record && !isset($custom_path)) {
             $url = self::$base_url . "/update/".$record->id;
             $submit_label = 'Update';
         }
