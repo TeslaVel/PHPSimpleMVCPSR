@@ -27,6 +27,32 @@ $form = Component::render('FormComponent', [[
 
 ?>
 
-<div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 mx-auto pt-5">
-  <?php echo $form; ?>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-6">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <div class="mb-3">
+                    <i class="bi bi-pencil-square display-1 text-success"></i>
+                </div>
+                <h1 class="h2 fw-bold text-success">Editar Mensaje</h1>
+                <p class="text-muted">Modifica el contenido de tu mensaje</p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                    <?php echo $form; ?>
+                </div>
+            </div>
+
+            <!-- Help Text -->
+            <div class="text-center mt-4">
+                <small class="text-muted">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Los cambios se aplicarán inmediatamente al guardar
+                </small>
+            </div>
+        </div>
+    </div>
 </div>

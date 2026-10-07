@@ -29,6 +29,32 @@ $form = Component::render('FormComponent', [[
 
 ?>
 
-<div class="col-xs-12 col-sm-10 col-md-8 col-lg-6 mx-auto pt-3">
-  <?php echo $form; ?>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 col-xl-6">
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <div class="mb-3">
+                    <i class="bi bi-plus-circle display-1 text-primary"></i>
+                </div>
+                <h1 class="h2 fw-bold text-primary">Crear Nuevo Post</h1>
+                <p class="text-muted">Comparte tus ideas y pensamientos con la comunidad</p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                    <?php echo $form; ?>
+                </div>
+            </div>
+
+            <!-- Help Text -->
+            <div class="text-center mt-4">
+                <small class="text-muted">
+                    <i class="bi bi-lightbulb me-1"></i>
+                    Consejo: Sé claro y conciso en tu título para atraer más lectores
+                </small>
+            </div>
+        </div>
+    </div>
 </div>
